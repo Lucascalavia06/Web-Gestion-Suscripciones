@@ -1,0 +1,157 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #E7DBCB;
+  --foreground: #000000;
+  --card: #F1E9DA;
+  --card-foreground: #000000;
+  --popover: #FFFEF0;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #FFFF00;
+  --secondary: #A3E635;
+  --secondary-foreground: #000000;
+  --muted: #F1E9DA;
+  --muted-foreground: #333333;
+  --accent: #3B82F6;
+  --accent-foreground: #000000;
+  --destructive: #FF4444;
+  --destructive-foreground: #000000;
+  --border: #000000;
+  --input: #FFFEF0;
+  --ring: #000000;
+  --chart-1: #A3E635;
+  --chart-2: #3B82F6;
+  --chart-3: #FB923C;
+  --chart-4: #FF90E8;
+  --chart-5: #FFFF00;
+  --radius: 0px;
+  --sidebar: #FFFF00;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #FFFF00;
+  --sidebar-accent: #A3E635;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #000000;
+  --sidebar-ring: #000000;
+  
+  /* Neubrutalist Colors */
+  --neu-pink: #FF90E8;
+  --neu-cream: #F1E9DA;
+  --neu-lime: #A3E635;
+  --neu-blue: #3B82F6;
+  --neu-orange: #FB923C;
+  --neu-yellow: #FFFF00;
+  --neu-cyan: #00FFFF;
+  --neu-black: #000000;
+  --aura-glow: rgba(255, 255, 0, 0.35);
+}
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #FFFF00;
+  --card: #2a2a2a;
+  --card-foreground: #FFFFFF;
+  --popover: #1a1a1a;
+  --popover-foreground: #FFFFFF;
+  --primary: #FFFF00;
+  --primary-foreground: #000000;
+  --secondary: #A3E635;
+  --secondary-foreground: #000000;
+  --muted: #333333;
+  --muted-foreground: #AAAAAA;
+  --accent: #FF90E8;
+  --accent-foreground: #000000;
+  --destructive: #FF4444;
+  --destructive-foreground: #000000;
+  --border: #FFFFFF;
+  --input: #2a2a2a;
+  --ring: #FFFF00;
+  --chart-1: #A3E635;
+  --chart-2: #3B82F6;
+  --chart-3: #FB923C;
+  --chart-4: #FF90E8;
+  --chart-5: #FFFF00;
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #FFFF00;
+  --sidebar-primary: #FFFF00;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #A3E635;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #FFFFFF;
+  --sidebar-ring: #FFFF00;
+}
+
+@theme inline {
+  --font-sans: 'Space Grotesk', 'Space Grotesk Fallback', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+  
+  /* Neubrutalist custom colors */
+  --color-neu-pink: var(--neu-pink);
+  --color-neu-cream: var(--neu-cream);
+  --color-neu-lime: var(--neu-lime);
+  --color-neu-blue: var(--neu-blue);
+  --color-neu-orange: var(--neu-orange);
+  --color-neu-yellow: var(--neu-yellow);
+  --color-neu-cyan: var(--neu-cyan);
+  --color-neu-black: var(--neu-black);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  .aura {
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6), 0 0 10px var(--aura-glow);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    /* Añade estas líneas aquí abajo */
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-attachment: fixed; /* Para que los puntos no se muevan al hacer scroll */
+    @apply bg-background text-foreground;
+  }
+}
