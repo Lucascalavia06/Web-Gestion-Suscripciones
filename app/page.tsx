@@ -7,6 +7,8 @@ import { Navbar } from "@/components/navbar"
 import { StatsSection } from "@/components/stats-section"
 import { SubscriptionCard, type Subscription } from "@/components/subscription-card"
 import { AddSubscriptionModal } from "@/components/add-subscription-modal"
+import { AuthModal } from "@/components/auth-modal"
+import { AIRecommendations } from "@/components/ai-recommendations"
 import { supabase } from "@/lib/supabase"
 import type { User } from "@supabase/supabase-js"
 import { toast } from "sonner"
@@ -77,6 +79,8 @@ export default function SubscriptionDashboard() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [loading, setLoading] = useState(true)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [authModalTab, setAuthModalTab] = useState<"login" | "signup">("login")
 
   // Función para convertir SuscripcionUsuario a Subscription
   const mapSuscripcionToSubscription = (sus: SuscripcionUsuario): Subscription => {
@@ -215,6 +219,15 @@ export default function SubscriptionDashboard() {
     setEditingSubscription(null)
   }
 
+  const handleOpenAuthModal = (tab: "login" | "signup") => {
+    setAuthModalTab(tab)
+    setIsAuthModalOpen(true)
+  }
+
+  const handleCloseAuthModal = () => {
+    setIsAuthModalOpen(false)
+  }
+
   // Fetch user session and subscriptions
   useEffect(() => {
     let mounted = true
@@ -281,38 +294,63 @@ export default function SubscriptionDashboard() {
         </motion.div>
 
         {/* Stats Section */}
-        <StatsSection {...stats} />
+        <StatsSection 
+          {...stats}
+          isAuthenticated={!!user}
+          onLoginClick={() => handleOpenAuthModal("login")}
+          onRegisterClick={() => handleOpenAuthModal("signup")}
+        />
 
-        {/* Annual Spending Header Card */}
+        {/* AI Recommendations Panel - Solo si está autenticado y hay suscripciones */}
+        {user && subscriptions.length > 0 && (
+          <AIRecommendations subscriptions={subscriptions} userId={user.id} />
+        )}
+
+        {/* Los gráficos se muestran ahora en la página de Analíticas */}
+
+        {/* Panel de Proyección Anual (estilizado) - Solo si está autenticado */}
+        {user && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mb-8 p-8 bg-neu-black border-4 border-neu-black flex flex-col md:flex-row items-center justify-between gap-6"
-          style={{ boxShadow: "8px 8px 0px 0px #A3E635" }}
+          className="mb-8 p-6 md:p-8 bg-gradient-to-r from-neu-black to-neu-black/80 border-[3px] border-neu-black rounded-xl overflow-hidden relative"
+          style={{ boxShadow: "10px 10px 0px 0px #A3E635" }}
         >
-          <div className="flex-1">
-            <p className="text-neu-yellow font-bold uppercase text-sm mb-2">Proyección Anual</p>
-            <h3 className="text-5xl md:text-6xl font-black text-neu-yellow italic">€{((stats.totalMensual || 0) * 12).toFixed(2)}</h3>
-            <p className="text-neu-yellow/80 font-bold uppercase mt-2">Gasto estimado en suscripciones</p>
-          </div>
-          <div className="flex gap-8 md:gap-12">
-            <div className="text-center">
-              <p className="text-neu-yellow/60 font-bold text-xs uppercase mb-1">Activas</p>
-              <p className="text-3xl font-black text-neu-yellow">{stats.activas || 0}</p>
+          <div className="absolute -left-6 top-6 w-40 h-40 bg-neu-yellow/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+            <div className="flex-1 flex items-center gap-4">
+              <div className="flex items-center justify-center bg-neu-yellow text-neu-black w-20 h-20 rounded-lg border-2 border-neu-black" style={{ boxShadow: "4px 4px 0px 0px #000" }}>
+                <Zap className="w-8 h-8" />
+              </div>
+              <div>
+                <p className="text-neu-yellow font-bold uppercase text-sm mb-1">Proyección Anual</p>
+                <h3 className="text-4xl md:text-5xl font-extrabold text-white">€{((stats.totalMensual || 0) * 12).toFixed(2)}</h3>
+                <p className="text-neu-yellow/80 font-semibold mt-1 text-sm">Gasto estimado en suscripciones</p>
+              </div>
             </div>
-            <div className="text-center">
-              <p className="text-neu-yellow/60 font-bold text-xs uppercase mb-1">Por Vencer</p>
-              <p className="text-3xl font-black text-neu-yellow">{stats.proximasVencer || 0}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-neu-yellow/60 font-bold text-xs uppercase mb-1">Mensual</p>
-              <p className="text-3xl font-black text-neu-yellow">€{(stats.totalMensual || 0).toFixed(2)}</p>
+
+            <div className="flex gap-4 md:gap-8">
+              <div className="bg-white/10 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
+                <p className="text-neu-yellow/70 font-bold text-xs uppercase mb-1">Activas</p>
+                <p className="text-2xl md:text-3xl font-black text-white">{stats.activas || 0}</p>
+              </div>
+              <div className="bg-white/10 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
+                <p className="text-neu-yellow/70 font-bold text-xs uppercase mb-1">Por Vencer</p>
+                <p className="text-2xl md:text-3xl font-black text-white">{stats.proximasVencer || 0}</p>
+              </div>
+              <div className="bg-white/10 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
+                <p className="text-neu-yellow/70 font-bold text-xs uppercase mb-1">Mensual</p>
+                <p className="text-2xl md:text-3xl font-black text-white">€{(stats.totalMensual || 0).toFixed(2)}</p>
+              </div>
             </div>
           </div>
         </motion.div>
+        )}
 
-        {/* Controls */}
+        {/* Controls - Solo si está autenticado */}
+        {user && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -361,6 +399,7 @@ export default function SubscriptionDashboard() {
             Agregar suscripción
           </motion.button>
         </motion.div>
+        )}
 
         {/* Subscriptions Grid */}
         <motion.div
@@ -380,8 +419,8 @@ export default function SubscriptionDashboard() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Empty State */}
-        {filteredSubscriptions.length === 0 && (
+        {/* Empty State - Solo si está autenticado */}
+        {user && filteredSubscriptions.length === 0 && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -430,6 +469,13 @@ export default function SubscriptionDashboard() {
         editingSubscription={editingSubscription}
         onUpdate={handleUpdateSubscription}
         currentSubscriptions={subscriptions}
+      />
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleCloseAuthModal}
+        initialTab={authModalTab}
       />
     </div>
   )

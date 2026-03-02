@@ -3,7 +3,7 @@
 import React from "react"
 
 import { motion } from "framer-motion"
-import { DollarSign, Calendar, TrendingUp, CreditCard } from "lucide-react"
+import { DollarSign, Calendar, TrendingUp, CreditCard, LogIn, UserPlus } from "lucide-react"
 
 interface StatCardProps {
   title: string
@@ -56,13 +56,80 @@ function StatCard({ title, value, icon, color, rotation, delay }: StatCardProps)
 }
 
 interface StatsSectionProps {
-  totalSpending: number
-  subscriptionCount: number
-  nextRenewal: string
-  averageCost: number
+  totalSpending?: number
+  subscriptionCount?: number
+  nextRenewal?: string
+  averageCost?: number
+  isAuthenticated?: boolean
+  onLoginClick?: () => void
+  onRegisterClick?: () => void
 }
 
-export function StatsSection({ totalSpending, subscriptionCount, nextRenewal, averageCost }: StatsSectionProps) {
+export function StatsSection({ 
+  totalSpending = 0, 
+  subscriptionCount = 0, 
+  nextRenewal = "N/A", 
+  averageCost = 0,
+  isAuthenticated = false,
+  onLoginClick,
+  onRegisterClick
+}: StatsSectionProps) {
+  
+  // Si no está autenticado, mostrar mensaje especial
+  if (!isAuthenticated) {
+    return (
+      <div className="mb-12">
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="bg-gradient-to-br from-neu-yellow to-neu-lime p-8 md:p-12 border-[4px] border-neu-black relative overflow-hidden"
+          style={{
+            boxShadow: "12px 12px 0px 0px #000",
+          }}
+        >
+          {/* Decorative element */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-neu-pink/20 rounded-full -mr-16 -mt-16" />
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-neu-blue/20 rounded-full -ml-20 -mb-20" />
+          
+          <div className="relative z-10 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase italic text-neu-black mb-4">
+              Si no te has registrado o no has iniciado sesión,
+            </h2>
+            <p className="text-xl md:text-2xl font-bold uppercase text-neu-black mb-8">
+              ya estás tardando para administrar mejor tus gastos
+            </p>
+            
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <motion.button
+                whileHover={{ scale: 1.05, rotate: -2 }}
+                whileTap={{ scale: 0.95, y: 4 }}
+                onClick={onLoginClick}
+                className="bg-neu-blue text-neu-black px-6 md:px-8 py-4 font-bold uppercase tracking-wider border-[3px] border-neu-black flex items-center justify-center gap-3 w-full sm:w-auto"
+                style={{ boxShadow: "6px 6px 0px 0px #000" }}
+              >
+                <LogIn className="w-5 h-5" />
+                Iniciar Sesión
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                whileTap={{ scale: 0.95, y: 4 }}
+                onClick={onRegisterClick}
+                className="bg-neu-pink text-neu-black px-6 md:px-8 py-4 font-bold uppercase tracking-wider border-[3px] border-neu-black flex items-center justify-center gap-3 w-full sm:w-auto"
+                style={{ boxShadow: "6px 6px 0px 0px #000" }}
+              >
+                <UserPlus className="w-5 h-5" />
+                Registrarse
+              </motion.button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
   const stats = [
     {
       title: "Total mensual",

@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { Zap, Bell, User, Menu, LogIn, LogOut, X } from "lucide-react"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 import { AuthForm } from "./auth-form"
@@ -13,6 +14,7 @@ export function Navbar() {
   const [user, setUser] = useState<SupabaseUser | null>(null)
   const [authModalOpen, setAuthModalOpen] = useState(false)
   const [userName, setUserName] = useState<string>("")
+  const router = useRouter()
 
   useEffect(() => {
     // Check current session
@@ -39,11 +41,19 @@ export function Navbar() {
   }, [])
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut()
-    if (error) {
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        toast.error("Error al cerrar sesión")
+        console.error("Error:", error)
+      } else {
+        toast.success("Sesión cerrada correctamente")
+        router.refresh()
+        router.push("/")
+      }
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error)
       toast.error("Error al cerrar sesión")
-    } else {
-      toast.success("Sesión cerrada correctamente")
     }
   }
 

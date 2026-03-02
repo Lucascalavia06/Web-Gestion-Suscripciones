@@ -2,22 +2,28 @@
 
 import { motion } from "framer-motion"
 import { Mail, Lock, User, LogIn, UserPlus, AlertCircle } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import { useRouter } from "next/navigation"
 
 interface AuthFormProps {
   onSuccess?: () => void
+  initialTab?: "login" | "signup"
 }
 
-export function AuthForm({ onSuccess }: AuthFormProps = {}) {
-  const [activeTab, setActiveTab] = useState<"login" | "signup">("login")
+export function AuthForm({ onSuccess, initialTab = "login" }: AuthFormProps = {}) {
+  const [activeTab, setActiveTab] = useState<"login" | "signup">(initialTab)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+
+  // Sincronizar el tab con el prop initialTab cuando cambia
+  useEffect(() => {
+    setActiveTab(initialTab)
+  }, [initialTab])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()

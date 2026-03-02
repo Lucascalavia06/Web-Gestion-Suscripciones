@@ -14,6 +14,7 @@ interface UserSession {
 export function UserProfile() {
   const [user, setUser] = useState<UserSession | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export function UserProfile() {
           })
         } else {
           setUser(null)
-          router.push("/auth")
+          router.push("/")
         }
       }
     )
@@ -57,8 +58,20 @@ export function UserProfile() {
   }, [router])
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push("/auth")
+    setIsLoggingOut(true)
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        console.error("Error al cerrar sesión:", error)
+      } else {
+        router.refresh()
+        router.push("/")
+      }
+    } catch (error) {
+      console.error("Error:", error)
+    } finally {
+      setIsLoggingOut(false)
+    }
   }
 
   if (isLoading) {
@@ -96,10 +109,11 @@ export function UserProfile() {
 
       {/* Logout Button */}
       <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: isLoggingOut ? 1 : 1.05 }}
+        whileTap={{ scale: isLoggingOut ? 1 : 0.95 }}
         onClick={handleLogout}
-        className="bg-neu-pink border-[3px] border-neu-black p-2 flex items-center justify-center"
+        disabled={isLoggingOut}
+        className="bg-neu-pink border-[3px] border-neu-black p-2 flex items-center justify-center disabled:opacity-50"
         style={{ boxShadow: "4px 4px 0px 0px #000" }}
         title="Cerrar sesión"
       >

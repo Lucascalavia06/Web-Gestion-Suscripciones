@@ -7,9 +7,10 @@ import { AuthForm } from "./auth-form" // Esto importa tu login de password
 interface AuthModalProps {
   isOpen: boolean
   onClose: () => void
+  initialTab?: "login" | "signup"
 }
 
-export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+export function AuthModal({ isOpen, onClose, initialTab = "login" }: AuthModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -34,7 +35,10 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 <X className="w-5 h-5 text-neu-black" />
               </button>
               {/* AQUÍ METEMOS EL FORMULARIO DE CONTRASEÑA */}
-              <AuthForm /> 
+              <AuthForm 
+                initialTab={initialTab}
+                onSuccess={onClose}
+              /> 
             </div>
           </motion.div>
         </>
