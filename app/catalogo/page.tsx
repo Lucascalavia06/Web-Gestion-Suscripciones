@@ -50,24 +50,34 @@ export default function CatalogoPage() {
             transition={{ delay: 0.2 }}
             className="mb-12"
           >
-            <div className="flex items-center gap-4 mb-4">
-              <motion.div
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.3 }}
-                className="bg-neu-cyan p-4 border-[3px] border-neu-black rotate-6"
-                style={{ boxShadow: "6px 6px 0px 0px #000" }}
-              >
-                <Zap className="w-8 h-8 text-neu-black" fill="currentColor" />
-              </motion.div>
-              <h1 className="text-4xl md:text-6xl font-bold uppercase italic text-neu-black tracking-tighter">
-                Catálogo
-              </h1>
+            <div className="relative">
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0" style={{
+                  backgroundImage: `repeating-linear-gradient(45deg, #000 0, #000 2px, transparent 0, transparent 10px)`,
+                }} />
+              </div>
+
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-4">
+                  <motion.div
+                    whileHover={{ rotate: 180 }}
+                    transition={{ duration: 0.3 }}
+                    className="bg-neu-cyan p-4 border-[3px] border-neu-black rotate-6"
+                    style={{ boxShadow: "6px 6px 0px 0px #000" }}
+                  >
+                    <Zap className="w-8 h-8 text-neu-black" fill="currentColor" />
+                  </motion.div>
+                  <h1 className="text-4xl md:text-6xl font-bold uppercase italic text-neu-black tracking-tighter">
+                    Catálogo
+                  </h1>
+                </div>
+                <p className="text-xl md:text-2xl font-bold text-neu-black uppercase tracking-wide leading-relaxed">
+                  <span className="inline-block bg-neu-yellow px-3 py-1 border-2 border-neu-black mr-2" style={{ boxShadow: "3px 3px 0px 0px #000" }}>Explora</span>
+                  <span className="inline-block bg-neu-lime px-3 py-1 border-2 border-neu-black mr-2" style={{ boxShadow: "3px 3px 0px 0px #000" }}>Descubre</span>
+                  <span className="inline-block bg-neu-pink px-3 py-1 border-2 border-neu-black" style={{ boxShadow: "3px 3px 0px 0px #000" }}>Suscríbete</span>
+                </p>
+              </div>
             </div>
-            <p className="text-xl md:text-2xl font-bold text-neu-black uppercase tracking-wide leading-relaxed">
-              <span className="inline-block bg-neu-yellow px-3 py-1 border-2 border-neu-black mr-2" style={{ boxShadow: "3px 3px 0px 0px #000" }}>Explora</span>
-              <span className="inline-block bg-neu-lime px-3 py-1 border-2 border-neu-black mr-2" style={{ boxShadow: "3px 3px 0px 0px #000" }}>Descubre</span>
-              <span className="inline-block bg-neu-pink px-3 py-1 border-2 border-neu-black" style={{ boxShadow: "3px 3px 0px 0px #000" }}>Suscríbete</span>
-            </p>
           </motion.div>
 
           {/* Catalog Section */}
