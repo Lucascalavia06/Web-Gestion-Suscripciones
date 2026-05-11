@@ -85,6 +85,10 @@ export async function callOpenRouter(
   model?: string
 ) {
   try {
+    const selectedModel = (model || process.env.OPENROUTER_MODEL || DEFAULT_FREE_MODEL)
+      .toString()
+      .trim()
+
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -93,7 +97,7 @@ export async function callOpenRouter(
         ...OPENROUTER_HEADERS,
       },
       body: JSON.stringify({
-        model: model || process.env.OPENROUTER_MODEL || DEFAULT_FREE_MODEL,
+        model: selectedModel,
         messages: messages,
         temperature: AI_CONFIG.temperature,
         max_tokens: AI_CONFIG.max_tokens,
@@ -134,6 +138,10 @@ export async function callOpenRouterStream(
   model?: string
 ) {
   try {
+    const selectedModel = (model || process.env.OPENROUTER_MODEL || DEFAULT_FREE_MODEL)
+      .toString()
+      .trim()
+
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -142,7 +150,7 @@ export async function callOpenRouterStream(
         ...OPENROUTER_HEADERS,
       },
       body: JSON.stringify({
-        model: model || process.env.OPENROUTER_MODEL || DEFAULT_FREE_MODEL,
+        model: selectedModel,
         messages: messages,
         temperature: AI_CONFIG.temperature,
         max_tokens: AI_CONFIG.max_tokens,

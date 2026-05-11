@@ -128,7 +128,7 @@ export function AIRecommendations({ subscriptions, userId }: AIRecommendationsPr
     >
       {/* Header con gradiente llamativo */}
       <div 
-        className="bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 border-[4px] border-neu-black p-8 relative overflow-hidden"
+        className="bg-gradient-to-r from-neu-yellow via-neu-lime to-neu-cyan border-[4px] border-neu-black p-8 relative overflow-hidden"
         style={{ boxShadow: "12px 12px 0px 0px #000" }}
       >
         {/* Patrón de fondo */}
@@ -142,11 +142,11 @@ export function AIRecommendations({ subscriptions, userId }: AIRecommendationsPr
           <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
             <div className="flex items-center gap-3">
               <motion.div 
-                className="bg-neu-black p-3 border-[3px] border-white"
+                className="bg-neu-cream p-3 border-[3px] border-neu-black"
                 animate={{ rotate: [0, 5, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 3 }}
               >
-                <Sparkles className="w-8 h-8 text-neu-yellow" />
+                <Sparkles className="w-8 h-8 text-neu-black" />
               </motion.div>
               <div>
                 <h2 className="text-3xl font-black uppercase italic text-neu-black">
@@ -163,7 +163,7 @@ export function AIRecommendations({ subscriptions, userId }: AIRecommendationsPr
               whileTap={{ scale: 0.95 }}
               onClick={analyzeSubscriptions}
               disabled={loading}
-              className="bg-neu-black text-neu-yellow px-6 py-3 font-black uppercase text-sm border-[3px] border-white flex items-center gap-2 disabled:opacity-50"
+              className="bg-neu-black text-neu-yellow px-6 py-3 font-black uppercase text-sm border-[3px] border-neu-black flex items-center gap-2 disabled:opacity-50"
               style={{ boxShadow: "4px 4px 0px 0px #000" }}
             >
               {loading ? (
@@ -185,7 +185,7 @@ export function AIRecommendations({ subscriptions, userId }: AIRecommendationsPr
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-white/90 border-[3px] border-neu-black p-4 backdrop-blur-sm"
+              className="bg-neu-cream border-[3px] border-neu-black p-4"
               style={{ boxShadow: "4px 4px 0px 0px #000" }}
             >
               <p className="font-bold text-neu-black">
@@ -310,10 +310,10 @@ export function AIRecommendations({ subscriptions, userId }: AIRecommendationsPr
                           >
                             <div className="flex items-start gap-2 mb-2">
                               <motion.div animate={{ x: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
-                                <ArrowRight className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                                <ArrowRight className="w-4 h-4 text-neu-blue shrink-0 mt-0.5" />
                               </motion.div>
                               <div>
-                                <p className="font-black text-sm uppercase text-indigo-600">
+                                <p className="font-black text-sm uppercase text-neu-blue">
                                   Alternativa
                                 </p>
                                 <p className="font-black text-neu-black">
@@ -327,7 +327,7 @@ export function AIRecommendations({ subscriptions, userId }: AIRecommendationsPr
                               </p>
                               <motion.span 
                                 whileHover={{ scale: 1.08 }}
-                                className="bg-indigo-600 text-white px-3 py-1 font-black text-xs rounded-sm shrink-0"
+                                className="bg-neu-blue text-neu-cream px-3 py-1 font-black text-xs rounded-sm shrink-0"
                                 style={{ boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.2)" }}
                               >
                                 €{rec.alternative.estimatedPrice.toFixed(2)}

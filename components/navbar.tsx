@@ -97,16 +97,20 @@ export function Navbar() {
             >
               Catálogo
             </motion.a>
-            {["Analíticas", "Ajustes"].map((item) => (
-            <motion.button
-              key={item}
-              whileHover={{ scale: 1.05, rotate: -1 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-neu-black font-bold uppercase text-sm tracking-wide hover:underline underline-offset-4 decoration-[3px]"
-            >
-              {item}
-            </motion.button>
-          ))}
+            {[
+              { label: "Analíticas", href: "/dashboard" },
+              { label: "Ajustes", href: "/ajustes" },
+            ].map((item) => (
+              <motion.a
+                key={item.label}
+                href={item.href}
+                whileHover={{ scale: 1.05, rotate: -1 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-neu-black font-bold uppercase text-sm tracking-wide hover:underline underline-offset-4 decoration-[3px]"
+              >
+                {item.label}
+              </motion.a>
+            ))}
         </div>
 
         <div className="flex items-center gap-3">
@@ -188,15 +192,19 @@ export function Navbar() {
             >
               Catálogo
             </motion.a>
-            {["Analíticas", "Ajustes"].map((item) => (
-            <motion.button
-              key={item}
-              whileTap={{ scale: 0.95 }}
-              className="block w-full text-left px-6 py-3 text-neu-black font-bold uppercase text-sm tracking-wide hover:bg-neu-black hover:text-neu-yellow border-b-2 border-neu-black last:border-b-0"
-            >
-              {item}
-            </motion.button>
-          ))}
+            {[
+              { label: "Analíticas", href: "/dashboard" },
+              { label: "Ajustes", href: "/ajustes" },
+            ].map((item) => (
+              <motion.a
+                key={item.label}
+                href={item.href}
+                whileTap={{ scale: 0.95 }}
+                className="block w-full text-left px-6 py-3 text-neu-black font-bold uppercase text-sm tracking-wide hover:bg-neu-black hover:text-neu-yellow border-b-2 border-neu-black last:border-b-0"
+              >
+                {item.label}
+              </motion.a>
+            ))}
           
           {user ? (
             <>

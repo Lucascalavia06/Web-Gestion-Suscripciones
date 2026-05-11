@@ -314,10 +314,10 @@ export default function SubscriptionDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mb-8 p-6 md:p-8 bg-gradient-to-r from-neu-black to-neu-black/80 border-[3px] border-neu-black rounded-xl overflow-hidden relative"
-          style={{ boxShadow: "10px 10px 0px 0px #A3E635" }}
+          className="mb-8 p-6 md:p-8 bg-gradient-to-br from-neu-cream via-white to-neu-cyan/40 border-[3px] border-neu-black rounded-xl overflow-hidden relative"
+          style={{ boxShadow: "10px 10px 0px 0px #000" }}
         >
-          <div className="absolute -left-6 top-6 w-40 h-40 bg-neu-yellow/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -left-6 top-6 w-40 h-40 bg-neu-cyan/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
             <div className="flex-1 flex items-center gap-4">
@@ -325,24 +325,24 @@ export default function SubscriptionDashboard() {
                 <Zap className="w-8 h-8" />
               </div>
               <div>
-                <p className="text-neu-yellow font-bold uppercase text-sm mb-1">Proyección Anual</p>
-                <h3 className="text-4xl md:text-5xl font-extrabold text-white">€{((stats.totalMensual || 0) * 12).toFixed(2)}</h3>
-                <p className="text-neu-yellow/80 font-semibold mt-1 text-sm">Gasto estimado en suscripciones</p>
+                <p className="text-neu-black font-bold uppercase text-sm mb-1">Proyección Anual</p>
+                <h3 className="text-4xl md:text-5xl font-extrabold text-neu-black">€{((stats.totalMensual || 0) * 12).toFixed(2)}</h3>
+                <p className="text-neu-black/70 font-semibold mt-1 text-sm">Gasto estimado en suscripciones</p>
               </div>
             </div>
 
             <div className="flex gap-4 md:gap-8">
-              <div className="bg-white/10 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
-                <p className="text-neu-yellow/70 font-bold text-xs uppercase mb-1">Activas</p>
-                <p className="text-2xl md:text-3xl font-black text-white">{stats.activas || 0}</p>
+              <div className="bg-neu-lime/60 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
+                <p className="text-neu-black/70 font-bold text-xs uppercase mb-1">Activas</p>
+                <p className="text-2xl md:text-3xl font-black text-neu-black">{stats.activas || 0}</p>
               </div>
-              <div className="bg-white/10 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
-                <p className="text-neu-yellow/70 font-bold text-xs uppercase mb-1">Por Vencer</p>
-                <p className="text-2xl md:text-3xl font-black text-white">{stats.proximasVencer || 0}</p>
+              <div className="bg-neu-cyan/50 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
+                <p className="text-neu-black/70 font-bold text-xs uppercase mb-1">Por Vencer</p>
+                <p className="text-2xl md:text-3xl font-black text-neu-black">{stats.proximasVencer || 0}</p>
               </div>
-              <div className="bg-white/10 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
-                <p className="text-neu-yellow/70 font-bold text-xs uppercase mb-1">Mensual</p>
-                <p className="text-2xl md:text-3xl font-black text-white">€{(stats.totalMensual || 0).toFixed(2)}</p>
+              <div className="bg-neu-yellow/70 border-[2px] border-neu-black p-4 rounded-md text-center" style={{ minWidth: 120 }}>
+                <p className="text-neu-black/70 font-bold text-xs uppercase mb-1">Mensual</p>
+                <p className="text-2xl md:text-3xl font-black text-neu-black">€{(stats.totalMensual || 0).toFixed(2)}</p>
               </div>
             </div>
           </div>

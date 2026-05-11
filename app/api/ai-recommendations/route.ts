@@ -47,7 +47,10 @@ export async function POST(req: NextRequest) {
     }, 0)
 
     // Selección de proveedor: puede venir en el body o en env DEFAULT_AI_PROVIDER
-    const provider = (requestedProvider || process.env.DEFAULT_AI_PROVIDER || 'openrouter').toLowerCase()
+    const provider = (requestedProvider || process.env.DEFAULT_AI_PROVIDER || 'openrouter')
+      .toString()
+      .trim()
+      .toLowerCase()
 
     console.log('🤖 [API] Proveedor de IA:', provider)
     console.log('💰 [API] Gasto mensual total:', totalMonthly)
